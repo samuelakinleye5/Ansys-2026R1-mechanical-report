@@ -112,3 +112,68 @@ This is a summary of the report, not a certification of structural
 safety or a substitute for engineering verification. The model setup and
 reported extreme values should be checked before drawing design,
 durability, service-load, or material-performance conclusions.
+
+
+README — ANSYS Mechanical Report: Concrete and Steel Rebar
+1. Project overview
+This document records an ANSYS Mechanical Static Structural analysis of a structural model containing concrete, bearing components, and rebar. The analysis report was generated with ANSYS 2026 R1 and contains model setup information, mesh statistics, boundary conditions, solver information, and result summaries.
+2. Analysis objective
+The report can be used to review the structural response under an imposed displacement, including:
+- Directional deformation in the global Y direction
+- Equivalent total strain
+- Normal stress in the global X direction
+- Normal stress in the global Z direction
+- Reaction forces at the applied boundary condition
+The report does not, by itself, establish crack propagation or experimentally measured tensile/compressive strength. Those conclusions require suitable damage/cracking outputs, validated material models, and/or supporting experimental data.
+3. Model and setup
+- Analysis type: Static Structural
+- Solver target: Mechanical APDL
+- Environment temperature: 22 °C
+- Geometry: 3-D; bounding box approximately 0.5 m × 1.1 m × 2.0 m
+- Bodies: 7 total / 7 active
+- Materials listed in the model: Concrete, Bearing, and Rebar (the report lists four materials in total)
+- Connections: 2 active contact connections; the listed contact region is bonded
+- Symmetry: Two symmetry regions are defined
+- Mesh: Coarse, linear elements; 940 nodes and 568 elements
+- Large deflection: On
+- Automatic time stepping: On
+- Analysis step: One step ending at 1 s
+- Displacement boundary condition: Global Y component ramped to 0.03048 m (30.48 mm); X and Z components are free for this displacement condition
+- Solver status: Solved; solution information reports zero Newton–Raphson residuals and zero identified element violations
+4. Reported result summary
+Values below are taken from the report's result table at the final display time unless otherwise indicated.
+Result	Reported value	Notes
+Maximum Y-directional deformation	0.03048 m (30.48 mm)	Consistent with the prescribed displacement magnitude
+Minimum Y-directional deformation	0 m	Final-time result
+Maximum equivalent total strain	0.22104 m/m	Very large strain; confirm material definitions, units, and whether this is a local peak
+Minimum equivalent total strain	5.9924 × 10⁻⁷ m/m	Final-time result
+Normal stress X — minimum	−19.313 MPa	Negative sign indicates compression under the report's sign convention
+Normal stress X — maximum	+4.8982 MPa	Positive sign indicates tension under the report's sign convention
+Normal stress Z — minimum	−12.722 MPa	Negative sign indicates compression under the report's sign convention
+Normal stress Z — maximum	+6.6842 MPa	Positive sign indicates tension under the report's sign convention
+Total reaction force at final time	142.22 kN	Reported resultant reaction
+Maximum total reaction force over time	176.86 kN	Maximum over the reported time history
+
+
+The result table also lists maximum-over-time stress values of approximately +5.098 MPa for normal stress X and +9.729 MPa for normal stress Z. Use the final-time and maximum-over-time values distinctly when reporting results.
+5. Interpretation guidance
+- Deformation: The reported maximum Y-directional deformation is 30.48 mm. Assess acceptability against the relevant span, serviceability limit, and design code; the report alone does not define those criteria.
+- Strain: The reported peak equivalent total strain of 0.22104 m/m is unusually large for ordinary structural concrete or reinforcing steel. Check the strain contour, element location, material constitutive models, contact behavior, units, and convergence before using it as a design conclusion.
+- Stress: The X- and Z-normal stress extrema show both tensile and compressive regions. They are component normal stresses, not automatically the material's ultimate tensile or compressive strength.
+- Cracking: This report's visible result list includes deformation, equivalent strain, and normal stresses. A crack-propagation conclusion should not be made unless an appropriate concrete damage/cracking model and its outputs are available.
+- Serviceability and safety: A service-load assessment needs the actual service load, design criteria, reinforcement details, material strengths, and appropriate safety factors. The presence of a solved result does not by itself demonstrate structural adequacy.
+6. Solver and convergence
+The report states that the Static Structural analysis is Solved. It records the final solution at 1 s, load step 1, substep 202, iteration number 435, with zero Newton–Raphson residuals and zero identified element violations in the solution-information summary. These are useful solver-status indicators, but they are not a substitute for mesh-convergence studies, equilibrium checks, and validation of the model assumptions.
+7. Recommended verification before engineering use
+1. Confirm the material properties and nonlinear constitutive definitions for concrete, bearing, and rebar.
+2. Review the displacement boundary condition and verify that 30.48 mm is the intended imposed displacement.
+3. Refine the coarse mesh, especially around contacts, supports, and high-stress/high-strain regions; compare results across mesh sizes.
+4. Inspect contact status, bonded-contact assumptions, and the two symmetry regions.
+5. Review contour plots and probe the locations of peak strain and stress.
+6. Compare stresses and deformations with relevant design-code limits and material capacities.
+7. If crack development is a project objective, configure and validate an appropriate concrete damage/cracking model and report its specific damage indicators.
+8. Retain the ANSYS project files and solver outputs if the model needs to be rerun or independently audited.
+8. Files and reproducibility
+The supplied file is an exported Word report (Mechanical_Reportsteelconcrete(1).docx). It references a local geometry source path from the original workstation. That path may not exist on another computer, so the original ANSYS Workbench project, geometry, material data, and solver files may be required to reproduce the analysis.
+9. Scope and limitations
+This README summarizes the contents of the supplied report; it does not independently validate the finite-element model. No explicit numerical concrete compressive strength, reinforcing-steel yield strength, or crack-propagation history is established by the result values summarized here. Do not describe the reported stress maxima as ultimate material strengths without additional material-strength data and a suitable failure assessment.
